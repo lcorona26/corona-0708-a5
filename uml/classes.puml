@@ -1,0 +1,38 @@
+@startuml
+
+class SceneManager{
+    main()
+    start()
+}
+class InventoryController{
+
+    -TextField: valueField, numField, nameField, searchField
+
+
+    + addClicked()
+    + removeClicked()
+    + searchClicked()
+    + updateClicked()
+    + saveClicked()
+    + loadClicked()
+    + add()
+    + remove()
+    + search()
+    + update()
+
+
+
+}
+class FileController{
+
+    -FileChooser: fileChooser
+
+    + save()
+    + load()
+}
+
+
+SceneManager <-InventoryController
+InventoryController - FileController
+
+@enduml
