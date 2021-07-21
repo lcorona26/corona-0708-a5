@@ -28,7 +28,7 @@ public class SceneManager extends Application {
             Scene scene = new Scene(root);
 
             primaryStage.setScene(scene);
-            primaryStage.setTitle("List");
+            primaryStage.setTitle("Inventory");
             primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
