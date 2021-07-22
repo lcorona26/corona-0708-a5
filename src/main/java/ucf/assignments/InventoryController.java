@@ -2,23 +2,26 @@ package ucf.assignments;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+
+import java.io.File;
 import java.net.URL;
 import javafx.fxml.Initializable;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.util.converter.FloatStringConverter;
 
 import java.util.ResourceBundle;
 
 public class InventoryController implements Initializable {
-
-    FileController action = new FileController();
-
 
 
     @FXML
@@ -31,23 +34,34 @@ public class InventoryController implements Initializable {
     private TableColumn<ColumnData,String> serial;
     @FXML
     private TableColumn<ColumnData,String> name;
+    @FXML
+    private final FileChooser fileChooser = new FileChooser();
 
     ObservableList<InventoryContents> list = FXCollections.observableArrayList();
 
+    FileController method = new FileController();
 
 
 
     public void initialize(URL url, ResourceBundle rb){
 
-        value.setCellValueFactory(new PropertyValueFactory<ColumnData, Float>("value"));
-        serial.setCellValueFactory(new PropertyValueFactory<ColumnData, String>("serial"));
-        name.setCellValueFactory(new PropertyValueFactory<ColumnData, String>("name"));
+        //initializes table columns
+        value.setCellValueFactory(new PropertyValueFactory<>("value"));
+        serial.setCellValueFactory(new PropertyValueFactory<>("serial"));
+        name.setCellValueFactory(new PropertyValueFactory<>("name"));
 
+        //allows rows to be edited with a double click
         value.setCellFactory(TextFieldTableCell.forTableColumn(new FloatStringConverter()));
         serial.setCellFactory(TextFieldTableCell.forTableColumn());
         name.setCellFactory(TextFieldTableCell.forTableColumn());
 
         table.setEditable(true);
+
+        //sets up extensions
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("HTML", "*.html"),
+                new FileChooser.ExtensionFilter("JSON", "*.json"),
+                new FileChooser.ExtensionFilter("TSV", "*.txt"));
+
     }
 
 
@@ -61,19 +75,13 @@ public class InventoryController implements Initializable {
         remove();
     }
     @FXML
-    public void searchClicked(ActionEvent actionEvent) {
-        search();
-    }
-    @FXML
     public void saveClicked(ActionEvent actionEvent) {
-        action.save();
+        save();
     }
     @FXML
     public void loadClicked(ActionEvent actionEvent) {
-        action.load();
+        load();
     }
-
-
 
 
     public void add(){
@@ -97,9 +105,33 @@ public class InventoryController implements Initializable {
         table.getItems().remove(selectID);
 
     }
+    public void save(){
 
-    public void search(){
+        fileChooser.setTitle("Save as...");
+        fileChooser.setInitialFileName("Inventory");
+
+        try{
+            File file = fileChooser.showSaveDialog(new Stage());
+            fileChooser.setInitialDirectory(file.getParentFile());
+
+            if(file.getName().endsWith(".txt"))
+                method.tsv(file, list);
+            if(file.getName().endsWith(".html"))
+                method.html(file, list);
+            if(file.getName().endsWith(".json"))
+                method.json(file, list);
+
+        }catch(Exception ignored){}
 
     }
 
+    public void load(){
+        fileChooser.setTitle("Load");
+
+        try{
+            File file = fileChooser.showOpenDialog(new Stage());
+            fileChooser.setInitialDirectory(file.getParentFile());
+        }catch(Exception ignored){}
+
+    }
 }

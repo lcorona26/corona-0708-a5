@@ -12,9 +12,7 @@ public class InventoryContents {
         this.name = name;
     }
 
-    public float getValue() {
-        return value;
-    }
+    public float getValue() {return value; }
 
     public String getSerial() {
         return serial;
@@ -22,6 +20,11 @@ public class InventoryContents {
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public String toString(){
+        return  "blank1" + this.value + "blank2"+ "\t" + this.serial + "blank3" + "\t" + this.name + "\n";
     }
 
 }
