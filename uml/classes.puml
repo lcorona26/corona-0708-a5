@@ -17,7 +17,8 @@ class InventoryController{
 
     ObservableList<InventoryController>: list
 
-    FileController: method
+    SaveController: saving
+    LoadController: loading
 
 
     +initialize
