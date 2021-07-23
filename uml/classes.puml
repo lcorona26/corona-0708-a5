@@ -7,30 +7,63 @@ class SceneManager{
 class InventoryController{
 
     -TextField: valueField, numField, nameField, searchField
+    -TableView<InventoryContents>: table
+
+    -TableColumn<ColumnData,Float>: value
+
+    -TableColumn<ColumnData,String>: serial
+
+    -TableColumn<ColumnData,String>: name
+
+    ObservableList<InventoryController>: list
+
+    FileController: method
 
 
+    +initialize
     + addClicked()
     + removeClicked()
     + saveClicked()
     + loadClicked()
     + add()
     + remove()
-    + search()
-    + update()
+    +save
+    +load
 
 
 
 }
-class FileController{
 
-    -FileChooser: fileChooser
+class SaveController{
 
-    + save()
-    + load()
+   +tsv()
+   +html()
+   +json()
+}
+class LoadController{
+
+   +tsv()
+   +html()
+   +json()
+}
+class InventoryContents{
+
+    -float value
+    -String serial
+    -String name
+
+    +InventoryContents()
+    +getValue
+    +getSerial
+    +getName
+    +toString()
 }
 
 
-SceneManager <-InventoryController
-InventoryController - FileController
+
+SceneManager <--InventoryController
+InventoryController <-- InventoryContents
+InventoryController <-- SaveController
+InventoryController <-- LoadController
 
 @enduml

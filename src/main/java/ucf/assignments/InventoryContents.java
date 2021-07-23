@@ -24,7 +24,7 @@ public class InventoryContents {
 
     @Override
     public String toString(){
-        return  "blank1" + this.value + "blank2"+ "\t" + this.serial + "blank3" + "\t" + this.name + "\n";
+        return  "blank1" + this.value + "blank2"+ "\t"  + "\"" + this.serial + "\"" + "blank3" + "\t" + "\"" + this.name + "\"" + "\n";
     }
 
 }

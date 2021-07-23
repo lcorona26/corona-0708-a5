@@ -29,17 +29,18 @@ public class InventoryController implements Initializable {
     @FXML
     private TableView<InventoryContents> table;
     @FXML
-    private TableColumn<ColumnData,Float> value;
+    private TableColumn<InventoryContents,Float> value;
     @FXML
-    private TableColumn<ColumnData,String> serial;
+    private TableColumn<InventoryContents,String> serial;
     @FXML
-    private TableColumn<ColumnData,String> name;
+    private TableColumn<InventoryContents,String> name;
     @FXML
     private final FileChooser fileChooser = new FileChooser();
 
     ObservableList<InventoryContents> list = FXCollections.observableArrayList();
 
-    FileController method = new FileController();
+    SaveController saving = new SaveController();
+    LoadController loading = new LoadController();
 
 
 
@@ -61,6 +62,7 @@ public class InventoryController implements Initializable {
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("HTML", "*.html"),
                 new FileChooser.ExtensionFilter("JSON", "*.json"),
                 new FileChooser.ExtensionFilter("TSV", "*.txt"));
+
 
     }
 
@@ -107,31 +109,42 @@ public class InventoryController implements Initializable {
     }
     public void save(){
 
+        //sets up save dialog window title and filename
         fileChooser.setTitle("Save as...");
         fileChooser.setInitialFileName("Inventory");
 
+        //opens save dialog window and allows user to save with their name/directory of choice
         try{
             File file = fileChooser.showSaveDialog(new Stage());
             fileChooser.setInitialDirectory(file.getParentFile());
 
             if(file.getName().endsWith(".txt"))
-                method.tsv(file, list);
+                saving.tsv(file, list);
             if(file.getName().endsWith(".html"))
-                method.html(file, list);
+                saving.html(file, list);
             if(file.getName().endsWith(".json"))
-                method.json(file, list);
+                saving.json(file, list);
 
         }catch(Exception ignored){}
-
     }
 
     public void load(){
+
+        //sets up title for load dialog window
         fileChooser.setTitle("Load");
 
+        //opens load dialog window and allows user to load in document of choice into table
         try{
             File file = fileChooser.showOpenDialog(new Stage());
             fileChooser.setInitialDirectory(file.getParentFile());
-        }catch(Exception ignored){}
 
+            if(file.getName().endsWith(".txt"))
+                loading.tsv(file, list, table);
+            if(file.getName().endsWith(".html"))
+                loading.html(file, list, table);
+            if(file.getName().endsWith(".json"))
+                loading.json(file, list, table);
+
+        }catch(Exception ignored){}
     }
 }
