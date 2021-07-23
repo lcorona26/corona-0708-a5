@@ -9,11 +9,11 @@ class InventoryController{
     -TextField: valueField, numField, nameField, searchField
     -TableView<InventoryContents>: table
 
-    -TableColumn<ColumnData,Float>: value
+    -TableColumn<InventoryContents,Float>: value
 
-    -TableColumn<ColumnData,String>: serial
+    -TableColumn<InventoryContents,String>: serial
 
-    -TableColumn<ColumnData,String>: name
+    -TableColumn<InventoryContents,String>: name
 
     ObservableList<InventoryController>: list
 
