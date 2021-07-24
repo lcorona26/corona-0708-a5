@@ -1,16 +1,19 @@
 package ucf.assignments;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import javafx.fxml.Initializable;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -19,7 +22,11 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.converter.FloatStringConverter;
 
+import javax.swing.*;
+import java.text.DecimalFormat;
 import java.util.ResourceBundle;
+
+import static java.lang.Math.round;
 
 public class InventoryController implements Initializable {
 
@@ -29,7 +36,7 @@ public class InventoryController implements Initializable {
     @FXML
     private TableView<InventoryContents> table;
     @FXML
-    private TableColumn<InventoryContents,Float> value;
+    private TableColumn<InventoryContents,String> value;
     @FXML
     private TableColumn<InventoryContents,String> serial;
     @FXML
@@ -46,13 +53,12 @@ public class InventoryController implements Initializable {
 
     public void initialize(URL url, ResourceBundle rb){
 
-        //initializes table columns
         value.setCellValueFactory(new PropertyValueFactory<>("value"));
         serial.setCellValueFactory(new PropertyValueFactory<>("serial"));
         name.setCellValueFactory(new PropertyValueFactory<>("name"));
 
         //allows rows to be edited with a double click
-        value.setCellFactory(TextFieldTableCell.forTableColumn(new FloatStringConverter()));
+        value.setCellFactory(TextFieldTableCell.forTableColumn());
         serial.setCellFactory(TextFieldTableCell.forTableColumn());
         name.setCellFactory(TextFieldTableCell.forTableColumn());
 
@@ -62,8 +68,6 @@ public class InventoryController implements Initializable {
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("HTML", "*.html"),
                 new FileChooser.ExtensionFilter("JSON", "*.json"),
                 new FileChooser.ExtensionFilter("TSV", "*.txt"));
-
-
     }
 
 
@@ -86,13 +90,42 @@ public class InventoryController implements Initializable {
     }
 
 
-    public void add(){
+    public void add() {
 
-        //allows float value to be retrieved from text field
-        float value = Float.parseFloat(valueField.getText());
 
-        //get values from text fields
-        list.add(new InventoryContents(value, serialField.getText(), nameField.getText()));
+        //check values from text fields are of correct format
+        boolean correct = true;
+
+        try{
+            float format = Float.parseFloat(valueField.getText());
+        }catch(NumberFormatException e){
+
+            //opens a window displaying error message
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("Incorrect Value Format!");
+            alert.setContentText("Value must be a number");
+            alert.showAndWait();
+
+            if(nameField.getText().length() <= 2 || nameField.getText().length() > 252){
+                correct = false;
+                alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText("Incorrect Name Format!");
+                alert.setContentText("Name must be between 2 and 252 characters");
+                alert.showAndWait();
+            }
+            if(serialField.getText().length() < 10 || serialField.getText().length() >10){
+                correct = false;
+                alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText("Incorrect Serial Number Format!");
+                alert.setContentText("Serial Number must be at least and no more 10 characters");
+                alert.showAndWait();
+            }
+        }
+        if(correct){
+            float format = Float.parseFloat(valueField.getText());
+            String value = String.format("$%.2f", format);
+            list.add(new InventoryContents(value, serialField.getText(), nameField.getText()));
+        }
 
         //add values to table
         table.setItems(list);

@@ -59,7 +59,6 @@ public class SaveController {
             e.printStackTrace();
         }
 
-
     }
     public void json(File file, ObservableList<InventoryContents> list){
 
@@ -75,7 +74,5 @@ public class SaveController {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-
     }
-
 }
