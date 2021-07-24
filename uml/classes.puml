@@ -34,19 +34,6 @@ class InventoryController{
 
 
 }
-
-class SaveController{
-
-   +tsv()
-   +html()
-   +json()
-}
-class LoadController{
-
-   +tsv()
-   +html()
-   +json()
-}
 class InventoryContents{
 
     -float value
@@ -59,12 +46,30 @@ class InventoryContents{
     +getName
     +toString()
 }
+class SaveController{
 
+   +tsv()
+   +html()
+   +json()
+}
+class LoadController{
+
+   +tsv()
+   +html()
+   +json()
+}
+class ErrorController{
+
+   +name()
+   +serial()
+   +value()
+}
 
 
 SceneManager <--InventoryController
 InventoryController <-- InventoryContents
 InventoryController <-- SaveController
 InventoryController <-- LoadController
+InventoryController <-- ErrorController
 
 @enduml

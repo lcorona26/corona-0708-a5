@@ -1,8 +1,5 @@
 package ucf.assignments;
 
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,17 +10,13 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
 import java.io.File;
-import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import javafx.fxml.Initializable;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.util.converter.FloatStringConverter;
 
-import javax.swing.*;
-import java.text.DecimalFormat;
 import java.util.ResourceBundle;
 
 import static java.lang.Math.round;
@@ -48,6 +41,7 @@ public class InventoryController implements Initializable {
 
     SaveController saving = new SaveController();
     LoadController loading = new LoadController();
+    ErrorController error = new ErrorController();
 
 
 
@@ -92,7 +86,6 @@ public class InventoryController implements Initializable {
 
     public void add() {
 
-
         //check values from text fields are of correct format
         boolean correct = true;
 
@@ -100,26 +93,20 @@ public class InventoryController implements Initializable {
             float format = Float.parseFloat(valueField.getText());
         }catch(NumberFormatException e){
 
-            //opens a window displaying error message
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("Incorrect Value Format!");
-            alert.setContentText("Value must be a number");
-            alert.showAndWait();
+            //opens a window displaying value error message
+            error.value();
+        }
+        if(nameField.getText().length() <= 2 || nameField.getText().length() > 252){
+            correct = false;
 
-            if(nameField.getText().length() <= 2 || nameField.getText().length() > 252){
-                correct = false;
-                alert = new Alert(Alert.AlertType.ERROR);
-                alert.setHeaderText("Incorrect Name Format!");
-                alert.setContentText("Name must be between 2 and 252 characters");
-                alert.showAndWait();
-            }
-            if(serialField.getText().length() < 10 || serialField.getText().length() >10){
-                correct = false;
-                alert = new Alert(Alert.AlertType.ERROR);
-                alert.setHeaderText("Incorrect Serial Number Format!");
-                alert.setContentText("Serial Number must be at least and no more 10 characters");
-                alert.showAndWait();
-            }
+            //opens a window displaying name error message
+            error.name();
+        }
+        if(serialField.getText().length() < 10 || serialField.getText().length() >10){
+            correct = false;
+
+            //opens a window displaying serial error message
+            error.serial();
         }
         if(correct){
             float format = Float.parseFloat(valueField.getText());
