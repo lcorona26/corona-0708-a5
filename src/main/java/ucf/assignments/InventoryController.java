@@ -5,7 +5,6 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
@@ -207,6 +206,7 @@ public class InventoryController implements Initializable {
     }
 
     public void serialEdited(TableColumn.CellEditEvent<InventoryContents, String> inventoryContentsStringCellEditEvent) {
+
         InventoryContents contents = table.getSelectionModel().getSelectedItem();
         contents.setSerial(inventoryContentsStringCellEditEvent.getNewValue());
 
@@ -218,6 +218,7 @@ public class InventoryController implements Initializable {
     }
 
     public void nameEdited(TableColumn.CellEditEvent<InventoryContents, String> inventoryContentsStringCellEditEvent) {
+
         InventoryContents contents = table.getSelectionModel().getSelectedItem();
         contents.setName(inventoryContentsStringCellEditEvent.getNewValue());
 

@@ -9,7 +9,7 @@ class InventoryController{
     -TextField: valueField, numField, nameField, searchField
     -TableView<InventoryContents>: table
 
-    -TableColumn<InventoryContents,Float>: value
+    -TableColumn<InventoryContents,String>: value
 
     -TableColumn<InventoryContents,String>: serial
 
@@ -21,7 +21,8 @@ class InventoryController{
     LoadController: loading
     ErrorController: error
 
-    +initialize
+    + initialize
+    + searchFilter()
     + addClicked()
     + removeClicked()
     + saveClicked()
@@ -36,7 +37,7 @@ class InventoryController{
 }
 class InventoryContents{
 
-    -float value
+    -String value
     -String serial
     -String name
 
@@ -44,6 +45,9 @@ class InventoryContents{
     +getValue
     +getSerial
     +getName
+    +setValue
+    +setSerial
+    +setName
     +toString()
 }
 class SaveController{
@@ -67,9 +71,9 @@ class ErrorController{
 
 
 SceneManager <--InventoryController
-InventoryController <-- InventoryContents
-InventoryController <-- SaveController
-InventoryController <-- LoadController
-InventoryController <-- ErrorController
+InventoryController *-- InventoryContents
+InventoryController *-- SaveController
+InventoryController *-- LoadController
+InventoryController *-- ErrorController
 
 @enduml

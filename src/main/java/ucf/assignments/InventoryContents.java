@@ -23,7 +23,7 @@ public class InventoryContents {
     }
 
     public void setValue(String value) {
-        this.value = value;
+        this.value =  value;
     }
 
     public void setSerial(String serial) {
