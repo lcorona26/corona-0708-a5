@@ -15,14 +15,15 @@ import java.io.IOException;
 
 public class SceneManager extends Application {
 
-    public static void main(String[] args) {
-        launch(args);
-    }
+
+    public static void main(String[] args) { launch(args); }
 
     @Override
     public void start(Stage primaryStage) {
 
         try {
+
+
             Parent root = FXMLLoader.load(getClass().getResource("Inventory.fxml"));
 
             Scene scene = new Scene(root);
@@ -30,6 +31,8 @@ public class SceneManager extends Application {
             primaryStage.setScene(scene);
             primaryStage.setTitle("Inventory");
             primaryStage.show();
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }

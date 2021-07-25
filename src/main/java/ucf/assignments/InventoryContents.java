@@ -22,6 +22,18 @@ public class InventoryContents {
         return name;
     }
 
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public void setSerial(String serial) {
+        this.serial = serial;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     @Override
     public String toString(){
         return  "blank1" + this.value + "blank2"+ "\t"  + "\"" + this.serial + "\"" + "blank3" + "\t" + "\"" + this.name + "\"" + "\n";

@@ -38,7 +38,6 @@ public class LoadController {
             }
             //using arraylist, column data is added to each column in table
             for(int j = 0; j< column.size(); j++){
-//                float value = Float.parseFloat(column.get(i));
                 list.add(new InventoryContents(column.get(i), column.get(i+1), column.get(i+2)));
                 i+=3;
             }
@@ -66,7 +65,6 @@ public class LoadController {
 
             //using arraylist, text data from html file is then added to table
             for(int j = 6; j<data.size(); j++){
-//                float value = Float.parseFloat(data.get(i));
                 list.add(new InventoryContents(data.get(i), data.get(i+1), data.get(i+2)));
                 i+=3;
             }
@@ -88,7 +86,6 @@ public class LoadController {
         for(int i = 0; i<arr.size();i++){
 
             //string content is then iterated through, assigning data to variables.
-//            float value = arr.get(i).getAsJsonObject().get("value").getAsFloat();
             String value = arr.get(i).getAsJsonObject().get("value").getAsString();
             String serial = arr.get(i).getAsJsonObject().get("serial number").getAsString();
             String name = arr.get(i).getAsJsonObject().get("name").getAsString();

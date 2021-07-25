@@ -10,16 +10,16 @@
    <children>
       <TableView fx:id="table" layoutY="26.0" prefHeight="188.0" prefWidth="496.0">
         <columns>
-          <TableColumn fx:id="value" prefWidth="150.0" text="Value" />
-          <TableColumn fx:id="serial" prefWidth="187.0" text="Serial Number" />
-            <TableColumn fx:id="name" prefWidth="158.0" text="Name" />
+          <TableColumn fx:id="value" onEditCommit="#valueEdited" prefWidth="150.0" text="Value" />
+          <TableColumn fx:id="serial" onEditCommit="#serialEdited" prefWidth="187.0" text="Serial Number" />
+            <TableColumn fx:id="name" onEditCommit="#nameEdited" prefWidth="158.0" text="Name" />
         </columns>
       </TableView>
       <TextField fx:id="valueField" layoutY="214.0" prefHeight="25.0" prefWidth="123.0" promptText="Value" />
       <TextField fx:id="serialField" layoutX="125.0" layoutY="214.0" prefHeight="25.0" prefWidth="149.0" promptText="Serial Number" />
-      <TextField fx:id="nameField" layoutX="276.0" layoutY="214.0" promptText="Name" />
-      <Button layoutX="426.0" layoutY="214.0" mnemonicParsing="false" onAction="#addClicked" prefHeight="25.0" prefWidth="70.0" text="Add" />
-      <Button layoutX="202.0" layoutY="246.0" mnemonicParsing="false" onAction="#removeClicked" prefHeight="25.0" prefWidth="92.0" text="Remove" />
+      <TextField fx:id="nameField" layoutX="276.0" layoutY="214.0" prefHeight="25.0" prefWidth="219.0" promptText="Name" />
+      <Button layoutX="154.0" layoutY="246.0" mnemonicParsing="false" onAction="#addClicked" prefHeight="25.0" prefWidth="92.0" text="Add" />
+      <Button layoutX="251.0" layoutY="246.0" mnemonicParsing="false" onAction="#removeClicked" prefHeight="25.0" prefWidth="92.0" text="Remove" />
       <Button layoutX="320.0" layoutY="2.0" mnemonicParsing="false" onAction="#saveClicked" prefHeight="25.0" prefWidth="92.0" text="Save" />
       <Button layoutX="411.0" layoutY="2.0" mnemonicParsing="false" onAction="#loadClicked" prefHeight="25.0" prefWidth="85.0" text="Load" />
       <TextField fx:id="searchField" layoutX="1.0" layoutY="2.0" prefHeight="25.0" prefWidth="316.0" promptText="Search" />

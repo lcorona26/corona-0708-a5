@@ -19,7 +19,7 @@ class InventoryController{
 
     SaveController: saving
     LoadController: loading
-
+    ErrorController: error
 
     +initialize
     + addClicked()
@@ -28,11 +28,11 @@ class InventoryController{
     + loadClicked()
     + add()
     + remove()
-    +save
-    +load
-
-
-
+    + save()
+    + load()
+    + valueEdited()
+    + serialEdited()
+    + nameEdited()
 }
 class InventoryContents{
 
